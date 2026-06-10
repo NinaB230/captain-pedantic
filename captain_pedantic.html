@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Captain Pedantic – Op Shop Rundown</title>
+<style>
+
+  /* ── RESET ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── COLLABORATE PALETTE ──
+     Sky Blue  #7FF5EE
+     Orange    #FFD3B5
+     Salmon    #FAAA97
+     Pink      #FB8DDF
+     Blue      #8CAFF8
+     Purple    #9B84FE
+  */
+
+  :root {
+    --sky:     #7FF5EE;
+    --orange:  #FFD3B5;
+    --salmon:  #FAAA97;
+    --pink:    #FB8DDF;
+    --blue:    #8CAFF8;
+    --purple:  #9B84FE;
+
+    --ink:     #111111;
+    --mid:     #555555;
+    --light:   #888888;
+    --rule:    #E5E5E5;
+    --bg:      #F8F8F6;
+    --white:   #FFFFFF;
+  }
+
+  /* ── BASE ── */
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'General Sans', 'GeneralSans-Variable', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 55%, var(--pink) 100%);
+    padding: 80px 40px 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 65% 25%, rgba(255,255,255,0.22) 0%, transparent 58%);
+    pointer-events: none;
+  }
+
+  .hero-location {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.65);
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(52px, 10vw, 100px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 span {
+    display: block;
+  }
+
+  .hero-tagline {
+    font-size: clamp(16px, 2.2vw, 20px);
+    font-weight: 400;
+    color: rgba(10,10,10,0.72);
+    max-width: 540px;
+    margin: 0 auto 36px;
+    line-height: 1.55;
+  }
+
+  .hero-meta {
+    display: inline-flex;
+    gap: 0;
+    background: rgba(255,255,255,0.45);
+    border-radius: 40px;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.7);
+    gap: 12px;
+  }
+
+  .hero-meta span + span::before {
+    content: '·';
+    margin-right: 12px;
+    opacity: 0.5;
+  }
+
+  /* ── INTRO BAND ── */
+  .intro-band {
+    background: var(--ink);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  .intro-band p {
+    font-size: clamp(18px, 2.6vw, 26px);
+    font-weight: 300;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.85);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .intro-band p strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ── CONTENT ── */
+  .content {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 72px 32px 80px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .section-label span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--light);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ── PROSE ── */
+  .prose p {
+    font-size: 17px;
+    font-weight: 400;
+    color: #2c2c2c;
+    line-height: 1.78;
+    margin-bottom: 22px;
+  }
+
+  .prose p:last-child { margin-bottom: 0; }
+
+  /* ── PULL QUOTE ── */
+  .pullquote {
+    border-left: 3px solid var(--salmon);
+    background: #FFF4F1;
+    padding: 24px 28px;
+    margin: 48px 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .pullquote p {
+    font-size: 17px;
+    font-weight: 500;
+    font-style: italic;
+    color: #3a2020;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── ACROSTIC TABLE ── */
+  .acrostic {
+    margin: 56px 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+  }
+
+  .acrostic-row {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    border-bottom: 1px solid var(--rule);
+    background: var(--white);
+    transition: background 0.15s;
+  }
+
+  .acrostic-row:last-child { border-bottom: none; }
+
+  /* Colour cycle using palette */
+  .acrostic-row:nth-child(1)  .acrostic-letter { background: var(--blue); }
+  .acrostic-row:nth-child(2)  .acrostic-letter { background: var(--purple); }
+  .acrostic-row:nth-child(3)  .acrostic-letter { background: var(--sky); color: var(--ink); }
+  .acrostic-row:nth-child(4)  .acrostic-letter { background: var(--salmon); color: var(--ink); }
+  .acrostic-row:nth-child(5)  .acrostic-letter { background: var(--blue); }
+  .acrostic-row:nth-child(6)  .acrostic-letter { background: var(--orange); color: var(--ink); }
+  .acrostic-row:nth-child(7)  .acrostic-letter { background: var(--pink); color: var(--ink); }
+  .acrostic-row:nth-child(8)  .acrostic-letter { background: var(--purple); }
+  .acrostic-row:nth-child(9)  .acrostic-letter { background: var(--sky); color: var(--ink); }
+  .acrostic-row:nth-child(10) .acrostic-letter { background: var(--salmon); color: var(--ink); }
+  .acrostic-row:nth-child(11) .acrostic-letter { background: var(--blue); }
+
+  .acrostic-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    padding: 26px 0;
+    flex-shrink: 0;
+  }
+
+  .acrostic-body {
+    padding: 22px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .acrostic-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .acrostic-detail {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .acrostic-detail a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--blue);
+    text-underline-offset: 3px;
+    transition: color 0.15s;
+  }
+
+  .acrostic-detail a:hover {
+    color: var(--purple);
+    text-decoration-color: var(--purple);
+  }
+
+  /* ── CAPTAIN CLOSER PANEL ── */
+  .captain-panel {
+    background: var(--ink);
+    border-radius: 16px;
+    padding: 52px 44px;
+    text-align: center;
+    margin: 56px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .captain-panel::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--purple);
+    opacity: 0.12;
+  }
+
+  .captain-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: var(--blue);
+    opacity: 0.1;
+  }
+
+  .captain-eyebrow {
+    display: inline-block;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .captain-panel h2 {
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .captain-panel p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  .captain-quote {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--sky);
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HR ── */
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 56px 0;
+  }
+
+  /* ── TAGS ── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .tag {
+    background: var(--ink);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 7px 15px;
+    border-radius: 20px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    padding: 40px 32px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.03em;
+  }
+
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero { padding: 60px 24px 52px; }
+    .intro-band { padding: 44px 24px; }
+    .content { padding: 52px 20px 64px; }
+    .acrostic-letter { font-size: 22px; padding: 20px 0; }
+    .acrostic-body { padding: 16px 18px; }
+    .captain-panel { padding: 40px 28px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-location">Company Update · June 2026 · Op Shop</div>
+  <h1>
+    <span>Captain</span>
+    <span>Pedantic</span>
+  </h1>
+  <p class="hero-tagline">Del's rundown of the ops processes that keep us running — and why the details genuinely matter.</p>
+  <div class="hero-meta">
+    <span>Del Carlyle-Hoggan</span>
+    <span>Internal Ops</span>
+    <span>GETPEDANTIC</span>
+  </div>
+</section>
+
+<!-- ── INTRO BAND ── -->
+<section class="intro-band">
+  <p>Following the glamour of Glenfiddich whiskey stunts in New York, Del took to the floor to remind us all of something important: <strong>we are, every one of us, ops.</strong></p>
+</section>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="content">
+
+  <div class="section-label"><span>The Brief</span></div>
+
+  <div class="prose">
+    <p>There's a superhero standing on a Pallet of Truth in our warehouse. He goes by Captain Pedantic. His shield says "We Are All Ops." And his message, delivered by Del with characteristic calm and dry wit, is this: the processes exist for a reason, and when we all follow them, everyone's job gets easier.</p>
+    <p>Del walked us through the GETPEDANTIC framework — an acrostic covering everything from the Goods Register to Client Storage — with the same energy you'd use to explain something that genuinely matters to people you like. Which is exactly what it was.</p>
+  </div>
+
+  <div class="pullquote">
+    <p>"After the glamour of Glenfiddich, this is going to be very dry nuts and bolts. But it falls to me to do the pedantry sometimes of what we perhaps should and shouldn't be doing."</p>
+  </div>
+
+  <div class="section-label"><span>GETPEDANTIC</span></div>
+
+  <div class="acrostic">
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">G</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Goods Register</div>
+        <div class="acrostic-detail">Fill it in, in full — and mark it complete when it's done. Use Collection Notes too. Knowing what's in a box, where it came from, and where it's going is what keeps HQ running smoothly. <a href="https://collaborateglobal.sharepoint.com/:x:/s/CompanyFiles/IQBpE9Pp8QaVQKGLw04ZdAJBAfKjWRnvMoR9Fv2Y9V6qoHQ?e=cAIxom" target="_blank">Open the Goods Register →</a></div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">E</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Everything in its Place</div>
+        <div class="acrostic-detail">Use the correct bay. Label everything with job number, name, and contents. A few seconds of labelling saves everyone else a lot of hunting around.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">T</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Truck Bookings</div>
+        <div class="acrostic-detail">Use the calendar to book the truck. Fill up the fuel. Keep it tidy. Three things. That's it. <strong>Bookings go through Elle Banyard, Office Manager</strong> — she's your first port of call.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">P</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Parking</div>
+        <div class="acrostic-detail">Don't park like a Pretty Bad Parking Person. And never — under any circumstances — in front of the shutter.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">E</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Equipment</div>
+        <div class="acrostic-detail">Book sessions through Rentman, manage usage on site, and think carefully about repatriation. Getting kit back in good order saves the ops team hours of thankless work.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">D</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Derig</div>
+        <div class="acrostic-detail">The derig always gets forgotten — but it's just as important as the build. Think materials, resource, logistics, warehousing, and disposal. Talk to the team before things arrive back at the warehouse so there are people, forklifts, and space ready. Don't Derig Like a Dipsomaniac.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">A</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Ask</div>
+        <div class="acrostic-detail">If you're in doubt about any of this — kit, process, support — just ask.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">N</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Notify</div>
+        <div class="acrostic-detail">Information is king. Keep subject headings accurate. File locations consistent. Use the ops@ email. And please — don't let an email chain drift so far from its original topic that nobody knows what it's about. Del has feelings about this.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">T</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Talk</div>
+        <div class="acrostic-detail">When you need the ops team on site, call them. They are genuinely not always at their desks. Radios exist for a reason.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">I</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Incoming</div>
+        <div class="acrostic-detail">Deliveries need planning. Think space management, labelling, out-of-office cover, forklifts, and load buddies. Don't just let things turn up and hope for the best.</div>
+      </div>
+    </div>
+
+    <div class="acrostic-row">
+      <div class="acrostic-letter">C</div>
+      <div class="acrostic-body">
+        <div class="acrostic-title">Client Storage</div>
+        <div class="acrostic-detail">Use the template. Take on-site photos with dimensions. Think warehouse logistics. The dream: client goods come back, we photograph them, store them properly, no extra cost. It's achievable.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── CAPTAIN CLOSER ── -->
+  <div class="captain-panel">
+    <div class="captain-eyebrow">Captain Pedantic's Last Word</div>
+    <h2>Pallet of Truth.<br>Handle with Care.</h2>
+    <p>All links to the relevant processes and platforms were shared in the company meeting chat. Questions? Give Del a shout — he is very much available.</p>
+    <div class="captain-quote">"Remember kids… don't pickle my pallets."</div>
+  </div>
+
+  <hr>
+
+  <div class="section-label"><span>Topics</span></div>
+
+  <div class="tags">
+    <span class="tag">We Are All Ops</span>
+    <span class="tag">Internal Ops</span>
+    <span class="tag">Processes &amp; Policies</span>
+    <span class="tag">Warehouse</span>
+    <span class="tag">Transparency &amp; Trust</span>
+    <span class="tag">One Agency</span>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <p><strong>Collaborate Global</strong> &nbsp;·&nbsp; Company Update &nbsp;·&nbsp; June 2026</p>
+</footer>
+
+</body>
+</html>
